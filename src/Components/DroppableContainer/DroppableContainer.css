@@ -1,0 +1,20 @@
+.big--container {
+  position: relative;
+  height: 45vh;
+}
+.grade {
+  padding: 1.5rem;
+  background: #ff6b6b;
+  overflow: scroll;
+  height: 100%;
+}
+.grade::-webkit-scrollbar {
+  display: none;
+}
+@media (min-width: 1000px) {
+  .grade {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(20px, 1fr));
+    gap: 5px;
+  }
+}

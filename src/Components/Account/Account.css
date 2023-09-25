@@ -1,0 +1,20 @@
+.account--container {
+  margin-bottom: 0.5rem;
+  margin-left: 0.5rem;
+  display: flex;
+  justify-content: start;
+  gap: 0.5rem;
+  align-items: center;
+  position: relative;
+}
+
+.user--options {
+  position: absolute;
+  bottom: -3.5rem;
+  left: -0.5rem;
+  background: #282c35;
+  border-radius: 0.5rem;
+  padding: 1rem;
+  z-index: 1;
+  opacity: 0.9;
+}

@@ -1,0 +1,13 @@
+.task--container {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 0.5rem;
+}
+.task--title {
+  display: flex;
+  gap: 1rem;
+}
+.checked p {
+  text-decoration: line-through;
+  color: rgb(214, 214, 214);
+}

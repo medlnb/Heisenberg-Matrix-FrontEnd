@@ -1,0 +1,18 @@
+.searchbar--container {
+  width: 100%;
+  padding: 1rem;
+  position: relative;
+}
+.searchbar--container input {
+  width: 100%;
+  padding: 0.5rem;
+  font-size: 1.2rem;
+  border-radius: 1rem;
+}
+.scoop {
+  position: absolute;
+  right: 1.5rem;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 1.2rem;
+}

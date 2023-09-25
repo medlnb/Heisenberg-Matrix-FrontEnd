@@ -1,0 +1,21 @@
+.note--container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 10%;
+  margin-bottom: 1rem;
+  box-shadow: 0 0 5px #fc3d3d;
+  border-radius: 0.5rem;
+  background: #2f333d;
+  max-height: 5rem;
+}
+.options > * {
+  display: block;
+  cursor: default;
+}
+.options > *:hover {
+  fill: black;
+}
+.dark {
+  background: #2f333d5e;
+}

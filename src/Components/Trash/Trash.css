@@ -1,0 +1,28 @@
+.trash--containter {
+  height: 10rem;
+  max-width: 97%;
+  margin: 0.5rem auto;
+  overflow: hidden;
+  background: #313541;
+  display: grid;
+  place-items: center;
+  box-shadow: 0px 0px 5px;
+  border-radius: 0.5rem;
+  position: relative;
+}
+.trash--pic {
+  opacity: 0.5;
+}
+.trashcan,
+.trashcap {
+  width: 30%;
+  display: block;
+  margin: 0 auto;
+}
+.open--trashcan {
+  transition: transform 0.5s;
+}
+
+.trash--containter:hover .trashcap.open--trashcan {
+  transform: translate(80%);
+}

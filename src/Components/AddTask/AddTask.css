@@ -1,0 +1,73 @@
+.button {
+  margin: 1.5rem 0.5rem;
+  box-shadow: 0 0 5px;
+  border-radius: 0.5rem;
+  padding: 1rem 0.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+  cursor: pointer;
+}
+
+.addtask--container {
+  margin: 1.5rem 0.5rem;
+  box-shadow: 0 0 5px;
+  border-radius: 0.5rem;
+  position: relative;
+  padding: 1rem 0.5rem;
+}
+.addtask--container > * {
+  margin-bottom: 0.5rem;
+}
+.addtask--container textarea {
+  background: white;
+}
+.addtask--container h4 {
+  position: absolute;
+  top: -0.7rem;
+  left: 1rem;
+  background: #424857;
+  padding: 0 0.5rem;
+  color: white;
+}
+.addtask--container input {
+  color: black;
+  border-radius: 0.3rem;
+  padding: 0.1rem 0.4rem;
+  border: none;
+  width: 100%;
+}
+.addtask--container input:focus,
+select:focus {
+  outline: none;
+  border: none;
+}
+.addtask--container select {
+  border-radius: 0.3rem;
+}
+.addtask--container select {
+  color: black;
+}
+.addtask--container button {
+  color: black;
+  width: 100%;
+  border-radius: 0.3rem;
+  border: none;
+  padding: 0.1rem;
+}
+
+.type--addnote input {
+  width: 45%;
+  margin-right: 0.5rem;
+}
+@media (max-width: 700px) {
+  .addtask--container > h4 {
+    background: #282c35;
+  }
+  .addtask--container button,
+  .addtask--container input,
+  .addtask--container select {
+    padding: 0.3rem;
+  }
+}

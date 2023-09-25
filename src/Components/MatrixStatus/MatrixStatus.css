@@ -1,0 +1,31 @@
+.matrixStatus--container {
+  height: 100%;
+  width: 97%;
+  margin: 0.5rem auto 0 auto;
+  background: #313541;
+  box-shadow: 0px 0px 5px;
+  border-radius: 0.5rem;
+  padding: 0.5rem;
+  overflow: scroll;
+}
+.matrixStatus--container::-webkit-scrollbar {
+  display: none;
+}
+.status {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  white-space: nowrap;
+  width: 100%;
+}
+.left--status {
+  display: flex;
+  gap: 0.5rem;
+}
+.inside--status {
+  font-size: 0.9rem;
+}
+.inside--status--title {
+  margin-left: 1rem;
+}

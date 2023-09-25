@@ -1,0 +1,15 @@
+.tasksFolder--container {
+  /* background: #424857; */
+  border: 2px dotted #424857;
+  padding: 0.7rem;
+  margin: 1rem 0;
+  border-radius: 0.5rem;
+  position: relative;
+}
+.tasksFolder--container h3 {
+  position: absolute;
+  top: -0.8rem;
+  background: #ff6b6b;
+  padding: 0 1rem;
+  left: 2rem;
+}

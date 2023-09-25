@@ -1,0 +1,20 @@
+.tasks--container {
+  padding: 1rem;
+  background: #ff6b6b;
+  margin: 0 auto;
+  height: 89%;
+  width: 97%;
+  border-radius: 1rem;
+  position: relative;
+}
+.spinner {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+@media (max-width: 700px) {
+  .tasks--container {
+    min-height: 10rem;
+  }
+}

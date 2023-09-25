@@ -1,0 +1,99 @@
+.navBar--container {
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 1rem;
+}
+.navBar--container > * {
+  width: 50%;
+  height: 2rem;
+  display: grid;
+  place-items: center;
+  position: relative;
+}
+.navBar--container > * > * {
+  text-decoration: none;
+}
+.selected--navbar,
+.selected--notes,
+.selected--matrix {
+  background: #ff6b6b;
+}
+
+.selected--navbar:after {
+  content: "";
+  position: absolute;
+  width: 0;
+  height: 0;
+  border-left: 1rem solid transparent;
+  border-right: 1rem solid transparent;
+  border-bottom: 1rem solid #424857;
+  right: -0.54rem;
+  transform: rotate(-90deg);
+}
+.selected--navbar:before {
+  content: "";
+  position: absolute;
+  height: 100%;
+  width: 0.6rem;
+  left: -0.52rem;
+  background: #ff6b6b;
+  box-shadow: -2px 5px 7px black;
+  z-index: -1;
+}
+
+.selected--notes:after {
+  content: "";
+  position: absolute;
+  width: 0;
+  height: 0;
+  border-left: 1rem solid transparent;
+  border-right: 1rem solid transparent;
+  border-top: 1rem solid #424857;
+  left: -0.54rem;
+  transform: rotate(-90deg);
+}
+.selected--notes:before {
+  content: "";
+  position: absolute;
+  height: 100%;
+  width: 0.5rem;
+  right: -0.5rem;
+  background: #ff6b6b;
+  box-shadow: 2px 5px 7px black;
+  z-index: -1;
+}
+
+.selected--matrix:after {
+  content: "";
+  position: absolute;
+  width: 0;
+  height: 0;
+  border-left: 1rem solid transparent;
+  border-right: 1rem solid transparent;
+  border-bottom: 1rem solid #ff6b6b;
+  left: -1.46rem;
+  transform: rotate(-90deg);
+}
+.selected--matrix:before {
+  content: "";
+  position: absolute;
+  width: 0;
+  height: 0;
+  border-left: 1rem solid transparent;
+  border-right: 1rem solid transparent;
+  border-top: 1rem solid #ff6b6b;
+  right: -1.46rem;
+  transform: rotate(-90deg);
+}
+@media (max-width: 700px) {
+  .selected--notes:before {
+    border: none;
+    left: 0rem;
+  }
+  .selected--notes:after {
+    border-top: 1rem solid #282c35;
+  }
+  .selected--navbar:after {
+    border-bottom: 1rem solid #282c35;
+  }
+}

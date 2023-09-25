@@ -1,0 +1,30 @@
+.month--button {
+  width: 2rem;
+  color: black;
+  background: none;
+  border: none;
+}
+.month {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 12rem;
+}
+.date {
+  display: flex;
+  justify-content: space-between;
+}
+#selectMonth {
+  background: none;
+  border: none;
+}
+#selectMonth::-webkit-scrollbar {
+  display: none;
+}
+#selectMonth:focus {
+  outline: none;
+}
+option {
+  background: #424857;
+  border: none;
+}
