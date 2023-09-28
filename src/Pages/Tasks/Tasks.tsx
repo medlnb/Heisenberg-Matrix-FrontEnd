@@ -25,7 +25,7 @@ function Tasks() {
   if (!state)
     return
   useEffect(() => {
-    if (state[0].date.year != 0)
+    if (state[0] && state[0].date.year != 0)
       setLoading(false)
 
   }, [state])
