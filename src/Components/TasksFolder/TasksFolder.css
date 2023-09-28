@@ -1,15 +1,67 @@
+.tasksFolder--container * {
+  color: black;
+  font-family: "Indie Flower", cursive;
+}
 .tasksFolder--container {
-  /* background: #424857; */
-  border: 2px dotted #424857;
+  width: 12rem;
   padding: 0.7rem;
-  margin: 1rem 0;
-  border-radius: 0.5rem;
-  position: relative;
+  margin: 0.5rem 0;
+  border-radius: 0.2rem;
+  box-shadow: 0px 0px 5px rgb(70, 69, 69);
 }
 .tasksFolder--container h3 {
-  position: absolute;
-  top: -0.8rem;
-  background: #ff6b6b;
+  margin-bottom: 0.5rem;
+  text-align: center;
   padding: 0 1rem;
-  left: 2rem;
+}
+.pin {
+  background-color: #aaa;
+  display: block;
+  height: 22px;
+  width: 2px;
+  position: absolute;
+  left: 50%;
+  top: -10px;
+  z-index: 1;
+}
+
+.pin:after {
+  background-color: rgb(59, 59, 59);
+  border-radius: 50%;
+  content: "";
+  height: 12px;
+  left: -5px;
+  position: absolute;
+  top: -10px;
+  width: 12px;
+}
+
+.pin:before {
+  background-color: hsla(0, 0%, 0%, 0.1);
+  box-shadow: 0 0 0.25em hsla(0, 0%, 0%, 0.1);
+  content: "";
+
+  height: 24px;
+  width: 2px;
+  left: 0;
+  position: absolute;
+  top: -2px;
+
+  transform: rotate(57.5deg);
+  -moz-transform: rotate(57.5deg);
+  -webkit-transform: rotate(57.5deg);
+  -o-transform: rotate(57.5deg);
+  -ms-transform: rotate(57.5deg);
+
+  transform-origin: 50% 100%;
+  -moz-transform-origin: 50% 100%;
+  -webkit-transform-origin: 50% 100%;
+  -ms-transform-origin: 50% 100%;
+  -o-transform-origin: 50% 100%;
+}
+@media (max-width: 700px) {
+  .tasksFolder--container {
+    width: 80%;
+    margin: 0.5rem auto;
+  }
 }

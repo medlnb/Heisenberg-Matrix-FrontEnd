@@ -4,13 +4,20 @@ import './TasksFolder.css'
 
 interface props {
   title: string,
-  tasksArray: TaskType[]
+  tasksArray: TaskType[],
+  color: string
 }
 
-function TasksFolder({ title, tasksArray }: props) {
+function TasksFolder({ title, tasksArray, color }: props) {
+  function getRandomNumber() {
+    const random = Math.random();
 
+    const randomNumber = random * 15 - 7;
+
+    return randomNumber;
+  }
   return (
-    <div className='tasksFolder--container'>
+    <div className='tasksFolder--container' style={{ background: color, transform: `rotate(${getRandomNumber()}deg)` }}>
       <h3>{title}</h3>
       {tasksArray.map((task: TaskType, i: number) => {
         return (

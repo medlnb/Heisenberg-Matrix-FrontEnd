@@ -49,8 +49,26 @@ function Tasks() {
     folders[typeName].push(task)
   })
   const fold = []
+  const stickyNoteColors = [
+    "#70a1ff", // Periwinkle Blue
+    "#badc58", // Pastel Green
+    "#f9ca24", // Sunflower Yellow
+    "#eccc68", // Mustard Yellow
+    "#ff85a2", // Coral Pink
+    "#6a0572", // Purple
+    "#ff7f11", // Tangerine Orange
+    "#33d9b2", // Turquoise
+    "#f1a9a0", // Salmon Pink
+    "#1e272e", // Dark Blue-Gray
+  ]
+  let index = 0;
   for (const folderName in folders) {
-    fold.push(<TasksFolder key={folderName} title={folderName} tasksArray={folders[folderName]} />);
+    fold.push(<TasksFolder
+      key={folderName}
+      title={folderName}
+      color={stickyNoteColors[index]}
+      tasksArray={folders[folderName]} />)
+    index++;
   }
 
   return (
@@ -66,7 +84,9 @@ function Tasks() {
         !loading &&
         <p>You have no Tasks for this date , relax or add one.</p>
       }
-      {fold}
+      <div className='folders'>
+        {fold}
+      </div>
     </div>
   )
 }

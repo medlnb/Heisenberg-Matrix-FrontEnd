@@ -1,11 +1,21 @@
 .tasks--container {
   padding: 1rem;
-  background: #ff6b6b;
+  background: white;
   margin: 0 auto;
   height: 89%;
   width: 97%;
   border-radius: 1rem;
   position: relative;
+  overflow: scroll;
+}
+.folders {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  align-items: flex-start;
+}
+.tasks--container::-webkit-scrollbar {
+  display: none;
 }
 .spinner {
   position: absolute;
@@ -16,5 +26,7 @@
 @media (max-width: 700px) {
   .tasks--container {
     min-height: 10rem;
+    overflow: visible;
+    padding: 1rem 0 11rem 0;
   }
 }
