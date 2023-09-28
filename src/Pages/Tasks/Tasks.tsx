@@ -25,19 +25,17 @@ function Tasks() {
   if (!state)
     return
   useEffect(() => {
-    if (state[0] && state[0].date.year != 0)
+    if (state.length == 1 && state[0].date.year != 0) {
       setLoading(false)
-
+    }
+    if (state.length == 0)
+      setLoading(false)
   }, [state])
-
-
 
   const filtredData = state.filter((task: TaskType) => {
     return (task.date.day === date.day && task.date.month === date.month && Number(task.date.year) === Number(date.year))
   }
-
   )
-
   const folders: { [key: string]: any } = {}
   filtredData.map((task) => {
     let typeName = task.folder
@@ -70,20 +68,18 @@ function Tasks() {
       tasksArray={folders[folderName]} />)
     index++;
   }
-
   return (
     <div className="tasks--container">
       <div className='spinner'>
         <BeatLoader
-          color={"white"}
+          color={"black"}
           loading={loading}
           size={30}
         />
       </div>
-      {filtredData.length < 1 &&
+      {filtredData.length == 0 &&
         !loading &&
-        <p>You have no Tasks for this date , relax or add one.</p>
-      }
+        <p>You have no Tasks for this date , relax or add one.</p>}
       <div className='folders'>
         {fold}
       </div>

@@ -8,6 +8,10 @@
   position: relative;
   overflow: scroll;
 }
+.tasks--container p {
+  padding: 1rem;
+  color: black;
+}
 .folders {
   display: flex;
   flex-wrap: wrap;
