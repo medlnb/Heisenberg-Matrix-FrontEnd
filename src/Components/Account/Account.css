@@ -8,11 +8,14 @@
   position: relative;
 }
 
+.user--options > * {
+  color: black;
+}
 .user--options {
   position: absolute;
   bottom: -3.5rem;
-  left: -0.5rem;
-  background: #282c35;
+  left: 0rem;
+  background: white;
   border-radius: 0.5rem;
   padding: 1rem;
   z-index: 1;

@@ -51,7 +51,7 @@ function Calendar({ data }: props) {
             if (data[NoteIndex].date.day == day && data[NoteIndex].date.month == date.month && data[NoteIndex].date.year == date.year)
               counter++
           }
-          console.log(counter)
+
           return (
             <div
               key={index}

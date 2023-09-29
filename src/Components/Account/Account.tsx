@@ -20,7 +20,7 @@ function Account() {
                 email: null,
                 token: null
               })
-          }}>Change user</Link>
+          }}>Log out</Link>
         </div>
       }
       <p>{user.username}</p>

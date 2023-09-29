@@ -29,7 +29,7 @@ function Notes() {
     if (state.length == 1 && state[0].date.year != 0)
       setLoading(false)
 
-    if (state.length != 0)
+    if (state.length != 1)
       setLoading(false)
 
   }, [state])

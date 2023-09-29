@@ -13,7 +13,7 @@ function SignUp({ changePage }: any) {
 
   const onSubmit = (event: any, values: any, actions: any) => {
     event.preventDefault();
-
+    console.log(values.username, values.email, values.password)
     useSignUp(values.username, values.email, values.password).then(
       (data: any) => {
         if (data.err) {
@@ -26,7 +26,7 @@ function SignUp({ changePage }: any) {
           handleUserChange(data)
           if (actions)
             actions.resetForm();
-          navigate("/matrix")
+          navigate("/notes")
         }
       }
     )

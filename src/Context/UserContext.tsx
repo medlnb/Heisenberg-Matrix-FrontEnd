@@ -31,6 +31,7 @@ export const AuthContextProvider = ({ children }: any) => {
     }
     setUser(user)
   }
+  
   return (
     <AuthContext.Provider value={{ user, handleUserChange }}>
       {children}

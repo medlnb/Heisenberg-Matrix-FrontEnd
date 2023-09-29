@@ -28,7 +28,7 @@ function Tasks() {
     if (state.length == 1 && state[0].date.year != 0) {
       setLoading(false)
     }
-    if (state.length != 0)
+    if (state.length != 1)
       setLoading(false)
   }, [state])
 
@@ -47,6 +47,7 @@ function Tasks() {
     folders[typeName].push(task)
   })
   const fold = []
+  console.log(filtredData)
   const stickyNoteColors = [
     "#70a1ff", // Periwinkle Blue
     "#badc58", // Pastel Green
@@ -68,6 +69,7 @@ function Tasks() {
       tasksArray={folders[folderName]} />)
     index++;
   }
+
   return (
     <div className="tasks--container">
       <div className='spinner'>
@@ -77,9 +79,10 @@ function Tasks() {
           size={30}
         />
       </div>
-      {filtredData.length == 0 &&
-        !loading &&
-        <p>You have no Tasks for this date , relax or add one.</p>}
+      {!loading &&
+        filtredData.length == 0 &&
+        <p>You have no Tasks for this date , relax or add one.</p>
+      }
       <div className='folders'>
         {fold}
       </div>
