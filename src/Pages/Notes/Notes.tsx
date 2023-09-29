@@ -26,7 +26,6 @@ function Notes() {
     return
 
   useEffect(() => {
-    console.log(state)
     if (state.length == 1 && state[0].date.year != 0)
       setLoading(false)
 

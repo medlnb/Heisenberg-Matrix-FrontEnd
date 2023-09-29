@@ -6,8 +6,13 @@ import NavBar from '../NavBar/NavBar'
 import AddTask from '../AddTask/AddTask.tsx'
 import './Right.css'
 import CreateNote from '../CreateNote/CreateNote.tsx'
+import { useContext } from 'react'
+import { NotesContext } from '../../Context/NoteContext.tsx'
+import { TasksContext } from '../../Context/TaskContext.tsx'
 
 function Right() {
+  const { state: notesState } = useContext(NotesContext)
+  const { state: tasksState } = useContext(TasksContext)
   const { pathname } = useLocation()
   return (
     <div className='right--container'>
@@ -16,13 +21,13 @@ function Right() {
       {pathname === "/" &&
         <>
           <DateCom />
-          <Calendar />
+          <Calendar data={tasksState} />
           <AddTask />
         </>}
       {pathname === "/notes" &&
         <>
           <DateCom />
-          <Calendar />
+          <Calendar data={notesState} />
           <CreateNote />
 
         </>}

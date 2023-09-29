@@ -4,8 +4,11 @@ import { DateContext } from '../../Context/DateContext'
 import { DateType } from '../../Models/Models';
 import { MdArrowBackIosNew, MdArrowForwardIos } from 'react-icons/md'
 
+
+
 function DateCom() {
   const todaydate = new Date()
+
 
   const { date, ChangeDate } = useContext(DateContext)
   const months = [

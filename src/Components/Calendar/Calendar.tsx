@@ -1,9 +1,15 @@
 import { useContext } from 'react';
 import './Calendar.css'
 import { DateContext } from '../../Context/DateContext';
-import { MatrixTasksType } from '../../Models/Models';
+import { MatrixTasksType, NoteType, TaskType } from '../../Models/Models';
 
-function Calendar() {
+interface props {
+  data: TaskType[] | NoteType[] | null
+}
+
+
+function Calendar({ data }: props) {
+
   const { date, ChangeDate } = useContext(DateContext)
   const daysName = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
 
@@ -37,17 +43,30 @@ function Calendar() {
         ))}
       </div>
       <div className='calendar--days'>
-        {days.map((day, index) => (
-          <div
-            key={index}
-            className={day == "" ? "" : `${date.day == day  ? "days selected--day" : "days"}`}
-            onClick={() => ChangeDate((prev: MatrixTasksType) => {
-              return { ...prev, day }
-            })}
-          >
-            <p >{day}</p>
-          </div>
-        ))}
+        {days.map((day, index) => {
+          let counter = 0;
+          if (!data)
+            return
+          for (let NoteIndex = 0; NoteIndex < data.length; NoteIndex++) {
+            if (data[NoteIndex].date.day == day && data[NoteIndex].date.month == date.month && data[NoteIndex].date.year == date.year)
+              counter++
+          }
+          console.log(counter)
+          return (
+            <div
+              key={index}
+              className={day == "" ? "" : `${date.day == day ? "days selected--day" : "days"}`}
+              onClick={() => ChangeDate((prev: MatrixTasksType) => {
+                return { ...prev, day }
+              })}
+            >
+              <p>{day}</p>
+              <p className='counter'>
+                {counter != 0 && counter}
+              </p>
+            </div>
+          )
+        })}
       </div>
     </div>
   )
