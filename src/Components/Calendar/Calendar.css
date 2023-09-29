@@ -1,7 +1,7 @@
 .calendar--container {
   padding: 1rem;
   box-shadow: 0px 0px 7px;
-  border-radius: .5rem;
+  border-radius: 0.5rem;
   width: 95%;
   margin: 1rem auto;
 }
@@ -21,14 +21,15 @@
 .days {
   display: grid;
   place-items: center;
-  margin-top: 0.5rem;
+  /* margin-top: 0.5rem; */
   aspect-ratio: 1 / 1;
-  border-radius: 50%;
+  /* border-radius: 50%; */
   cursor: pointer;
+  border: 0.5px solid #3e434e7c;
 }
 .days:hover {
-  background: #ff6b6b;
+  border: 0.5px solid white;
 }
-.selected--day{
-  background: #ff4a4a;
+.selected--day {
+  border: 0.5px solid white;
 }

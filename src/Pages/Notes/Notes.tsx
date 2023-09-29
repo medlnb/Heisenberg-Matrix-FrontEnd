@@ -26,10 +26,11 @@ function Notes() {
     return
 
   useEffect(() => {
-    if (state.length == 1 && state[0].date.year != 0) {
+    console.log(state)
+    if (state.length == 1 && state[0].date.year != 0)
       setLoading(false)
-    }
-    if (state.length == 0)
+
+    if (state.length != 0)
       setLoading(false)
 
   }, [state])
