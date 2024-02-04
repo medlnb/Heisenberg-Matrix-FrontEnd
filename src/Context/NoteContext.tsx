@@ -4,13 +4,13 @@ import { AuthContext } from "./UserContext";
 
 export const NotesContext = createContext<{
   state: NoteType[] | null;
-  dispatch: any | null;
+  dispatch: any;
 }>({
   state: null,
   dispatch: null,
 });
 export const NoteReducer = (
-  state: NoteType[],
+  state: NoteType[] | null,
   action: {
     type: "SETNOTES" | "ADDNOTE" | "REMOVENOTE";
     payload: any;
@@ -21,9 +21,10 @@ export const NoteReducer = (
       return action.payload;
 
     case "ADDNOTE":
-      return [...state, action.payload];
+      return state ? [...state, action.payload] : [action.payload];
 
     case "REMOVENOTE":
+      if (!state) return;
       return state.filter((note) => note._id !== action.payload);
     default:
       return state;
@@ -31,21 +32,10 @@ export const NoteReducer = (
 };
 export const NotesContextProvider = ({ children }: any) => {
   const { user } = useContext(AuthContext);
-  const default_Notes = [
-    {
-      content: "",
-      date: {
-        dayName: "",
-        day: 0,
-        month: 0,
-        year: 0,
-      },
-      folder: "",
-    },
-  ];
-  const [state, dispatch] = useReducer<React.Reducer<NoteType[], any>>(
+
+  const [state, dispatch] = useReducer<React.Reducer<NoteType[] | null, any>>(
     NoteReducer,
-    default_Notes
+    null
   );
 
   const fetchNotes = async () => {

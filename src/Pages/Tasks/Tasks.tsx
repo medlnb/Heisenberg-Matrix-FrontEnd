@@ -60,7 +60,9 @@ function Tasks() {
         </div>
       )}
       {filtredData?.length == 0 && (
-        <p>You have no Tasks for this date , relax or add one.</p>
+        <p style={{ color: "white" }}>
+          You have no Tasks for this date , relax or add one.
+        </p>
       )}
       <div className="folders">{fold}</div>
     </div>

@@ -4,16 +4,13 @@ import { useAuthContext } from "../../Hooks/useAuthContext";
 import { Link, useNavigate } from "react-router-dom";
 import { useSignUp } from "../../Hooks/useSignUp";
 import "../Login/Login";
-import { useState } from "react";
 
 function SignUp() {
-  const [checked, setChecked] = useState(false);
   const navigate = useNavigate();
   const { handleUserChange } = useAuthContext();
 
   const onSubmit = (event: any, values: any, actions: any) => {
     event.preventDefault();
-    console.log(values.username, values.email, values.password);
     useSignUp(values.username, values.email, values.password).then(
       (data: any) => {
         if (data.err) {
@@ -102,14 +99,6 @@ function SignUp() {
           >
             {errors.password} !
           </p>
-        </div>
-        <div>
-          <input
-            checked={checked}
-            onChange={() => setChecked((prev) => !prev)}
-            type="checkbox"
-          />
-          <span style={{ marginLeft: ".5rem" }}>Remember me</span>
         </div>
         <button
           type="submit"
