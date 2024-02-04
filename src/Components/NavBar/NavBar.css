@@ -9,10 +9,9 @@
   display: grid;
   place-items: center;
   position: relative;
-}
-.navBar--container > * > * {
   text-decoration: none;
 }
+
 .selected--navbar,
 .selected--notes,
 .selected--matrix {

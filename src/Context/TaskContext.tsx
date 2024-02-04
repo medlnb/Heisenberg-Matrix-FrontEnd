@@ -2,72 +2,76 @@ import { createContext, useContext, useEffect, useReducer } from "react";
 import { TaskType } from "../Models/Models";
 import { AuthContext } from "./UserContext";
 
-
-export const TasksContext = createContext<{ state: TaskType[] | null, dispatch: any | null }>({
+export const TasksContext = createContext<{
+  state: TaskType[] | null;
+  dispatch: any | null;
+}>({
   state: null,
-  dispatch: null
-})
-export const NoteReducer = (state: TaskType[], action: any) => {
+  dispatch: null,
+});
+export const NoteReducer = (
+  state: TaskType[] | null,
+  action: {
+    type: "SETTASKS" | "ADDTASK" | "UPDATETASK" | "CHECKTASK" | "REMOVETASK";
+    payload: any;
+  }
+) => {
   switch (action.type) {
     case "SETTASKS":
-      return action.payload
+      return action.payload;
 
     case "ADDTASK":
-      return [...state, action.payload];
+      return state ? [...state, action.payload] : [action.payload];
 
     case "UPDATETASK":
-      return action.payload
+      return action.payload;
 
     case "CHECKTASK":
-      return state.map(task => {
+      if (!state) return;
+      return state.map((task) => {
         if (task._id == action.payload)
-          return { ...task, checked: !task.checked }
-        else
-          return task
-      })
+          return { ...task, checked: !task.checked };
+        else return task;
+      });
 
     case "REMOVETASK":
-      return state.filter(task => task._id !== action.payload)
+      if (!state) return;
+      return state.filter((task) => task._id !== action.payload);
     default:
-      return state
+      return state;
   }
-}
+};
 export const TasksContextProvider = ({ children }: any) => {
-  const { user } = useContext(AuthContext)
-  const default_task: TaskType = {
-    title: "",
-    date: {
-      day: 0,
-      month: 0,
-      year: 0,
-      dayName: ""
-    },
-    folder: ""
-  }
+  const { user } = useContext(AuthContext);
 
-  const [state, dispatch] = useReducer<React.Reducer<TaskType[], any>>(NoteReducer, [default_task])
-
+  const [state, dispatch] = useReducer<React.Reducer<TaskType[] | null, any>>(
+    NoteReducer,
+    null
+  );
 
   const fetchNotes = async () => {
-    const response = await fetch(`https://heisenberg-matrix-backend.onrender.com/api/tasks`, {
-      headers: {
-        "authorization": `bearer ${user.token}`
+    const response = await fetch(
+      `https://heisenberg-matrix-backend.onrender.com/api/tasks`,
+      {
+        headers: {
+          authorization: `bearer ${user.token}`,
+        },
       }
-    })
+    );
     const json: TaskType[] = await response.json();
     dispatch({
       type: "SETTASKS",
-      payload: json
-    })
-  }
+      payload: json,
+    });
+  };
 
   useEffect(() => {
-    fetchNotes()
-  }, [])
+    fetchNotes();
+  }, []);
 
   return (
     <TasksContext.Provider value={{ state, dispatch }}>
       {children}
     </TasksContext.Provider>
   );
-}
+};

@@ -7,3 +7,30 @@
 body {
   background: #282c35;
 }
+.right--container {
+  padding: 1rem 0;
+  background: #424857;
+  width: 25rem;
+}
+.right--container::-webkit-scrollbar {
+  display: none;
+}
+.matrixRight--container {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+  height: 91%;
+}
+@media (max-width: 700px) {
+  .right--container {
+    padding: 1rem 0 0 0;
+    background: #282c35;
+    width: 100%;
+  }
+  .finishs {
+    display: flex;
+  }
+  .finishs > * {
+    width: 48%;
+  }
+}

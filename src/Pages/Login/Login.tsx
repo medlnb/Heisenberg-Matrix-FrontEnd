@@ -1,78 +1,76 @@
-import { FormikHelpers, useFormik } from 'formik';
-import { useAuthContext } from '../../Hooks/useAuthContext';
-import { useNavigate } from 'react-router-dom';
-import { useLogin } from '../../Hooks/useLogin';
-import { LoginSchema } from '../../Schemas/UerSchema';
-import './Login.css'
-import { useState } from 'react';
+import { FormikHelpers, useFormik } from "formik";
+import { useAuthContext } from "../../Hooks/useAuthContext";
+import { Link, useNavigate } from "react-router-dom";
+import { useLogin } from "../../Hooks/useLogin";
+import { LoginSchema } from "../../Schemas/UerSchema";
+import "./Login.css";
 
-
-
-function Login({ changePage }: any) {
-  const [checked, setChecked] = useState(false)
-  const navigate = useNavigate()
-  const { handleUserChange } = useAuthContext()
+function Login() {
+  const navigate = useNavigate();
+  const { handleUserChange } = useAuthContext();
 
   const onSubmit = (
     event: Event | undefined,
     values: { email: string; password: string },
-    actions: FormikHelpers<{ email: string; password: string; }>
+    actions: FormikHelpers<{ email: string; password: string }>
   ) => {
-    if (event)
-      event.preventDefault();
-    useLogin(values.email, values.password).then(
-      (data: any) => {
-        if (data.email_err) {
-          if (actions) {
-            actions.setErrors({ email: data.email_err });
-            actions.setSubmitting(false)
-          }
+    if (event) event.preventDefault();
+    useLogin(values.email, values.password).then((data: any) => {
+      if (data.email_err) {
+        if (actions) {
+          actions.setErrors({ email: data.email_err });
+          actions.setSubmitting(false);
         }
-        else if (data.pw_err) {
-          if (actions) {
-            actions.setErrors({ password: data.pw_err });
-            actions.setSubmitting(false)
-          }
+      } else if (data.pw_err) {
+        if (actions) {
+          actions.setErrors({ password: data.pw_err });
+          actions.setSubmitting(false);
         }
-        else {
-          handleUserChange(data)
-          if (actions)
-            actions.resetForm();
-          navigate('/notes')
-        }
+      } else {
+        handleUserChange(data);
+        if (actions) actions.resetForm();
+        navigate("/notes");
       }
-    )
-  }
+    });
+  };
 
-  const { values, errors, touched, isSubmitting, handleChange, handleSubmit } = useFormik({
-    initialValues: {
-      email: "",
-      password: ""
-    },
-    validationSchema: LoginSchema,
-    onSubmit: (values, actions) => onSubmit(event, values, actions),
-  })
+  const { values, errors, touched, isSubmitting, handleChange, handleSubmit } =
+    useFormik({
+      initialValues: {
+        email: "",
+        password: "",
+      },
+      validationSchema: LoginSchema,
+      onSubmit: (values, actions) => onSubmit(event, values, actions),
+    });
 
   return (
-    <div className="LogIn_body" >
-      <form className='LogIn_conatiner' onSubmit={handleSubmit}>
+    <div className="LogIn_body">
+      <form className="LogIn_conatiner" onSubmit={handleSubmit}>
         <h2>Login</h2>
         <h3>Please enter your details</h3>
 
         <h4>Email adress</h4>
-        <div className='inputs_container'>
+        <div className="inputs_container">
           <input
             className="inputs"
             value={values.email}
-            id='email'
+            id="email"
             onChange={handleChange}
           />
           <p
-            style={errors.email && touched.email ? { visibility: "visible" } : { visibility: "hidden" }}
-            className='wrong_password'>{errors.email} !</p>
+            style={
+              errors.email && touched.email
+                ? { visibility: "visible" }
+                : { visibility: "hidden" }
+            }
+            className="wrong_password"
+          >
+            {errors.email} !
+          </p>
         </div>
         <h4>Password</h4>
-        <div className='inputs_container'>
+        <div className="inputs_container">
           <input
             className="inputs"
             type="password"
@@ -81,30 +79,33 @@ function Login({ changePage }: any) {
             onChange={handleChange}
           />
           <p
-            style={errors.password && touched.password ? { visibility: "visible" } : { visibility: "hidden" }}
-            className='wrong_password'>{errors.password} !</p>
-        </div>
-        <div>
-          <input
-            checked={checked}
-            onChange={() => setChecked(prev => !prev)}
-            type='checkbox'
-          />
-          <span style={{ marginLeft: ".5rem" }}>Remember me</span>
+            style={
+              errors.password && touched.password
+                ? { visibility: "visible" }
+                : { visibility: "hidden" }
+            }
+            className="wrong_password"
+          >
+            {errors.password} !
+          </p>
         </div>
         <button
           type="submit"
           disabled={isSubmitting}
-          className={isSubmitting ? 'login isSubmitting' : 'login'}>
+          className={isSubmitting ? "login isSubmitting" : "login"}
+        >
           Log in
         </button>
-        <button className='login_google'><i className="fa-brands fa-google" /> Log in with google</button>
-        <div className='toSignup'>
-          don't have an account?<p onClick={() => changePage()}>Sign up</p>
+        <button className="login_google">
+          <i className="fa-brands fa-google" /> Log in with google
+        </button>
+        <div className="toSignup">
+          don't have an account?
+          <Link to="/welcome/signup">Sign up</Link>
         </div>
-      </form >
+      </form>
     </div>
-  )
+  );
 }
 
-export default Login
+export default Login;

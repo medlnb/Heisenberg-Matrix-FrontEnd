@@ -1,15 +1,30 @@
-import { Link, useLocation } from 'react-router-dom'
-import './NavBar.css'
+import { NavLink } from "react-router-dom";
+import "./NavBar.css";
 
 function NavBar() {
-  const { pathname } = useLocation()
   return (
-    <div className='navBar--container'>
-      <div className={pathname === "/" ? `selected--navbar` : ""}><Link to="/">Tasks</Link></div>
-      <div className={pathname === "/matrix" ? `selected--matrix` : ""}><Link to="/matrix"> Matrix</Link></div>
-      <div className={pathname === "/notes" ? `selected--notes` : ""}><Link to="/notes"  >Notes</Link></div>
-    </div >
-  )
+    <div className="navBar--container">
+      <NavLink
+        className={({ isActive }) => (isActive ? "selected--navbar" : "")}
+        to="/"
+      >
+        Tasks
+      </NavLink>
+      <NavLink
+        className={({ isActive }) => (isActive ? "selected--matrix" : "")}
+        to="/matrix"
+      >
+        Matrix
+      </NavLink>
+
+      <NavLink
+        className={({ isActive }) => (isActive ? "selected--notes" : "")}
+        to="/notes"
+      >
+        Notes
+      </NavLink>
+    </div>
+  );
 }
 
-export default NavBar
+export default NavBar;
