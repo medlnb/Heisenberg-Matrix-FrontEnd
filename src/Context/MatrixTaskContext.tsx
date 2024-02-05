@@ -50,7 +50,8 @@ export const NoteReducer = (
       };
 
     case "UPDATENOTES":
-      return { MatrixTasks: action.payload, checkedMatrixTasks: [] };
+      if (!state) return null;
+      return { ...state, MatrixTasks: action.payload };
 
     case "REMOVEMATRIXTASK":
       if (!state) return null;
@@ -70,7 +71,6 @@ export const NoteReducer = (
   }
 };
 export const MatrixTasksContextProvider = ({ children }: any) => {
-  const { handleUserChange } = useContext(AuthContext);
   const [state, dispatch] = useReducer<React.Reducer<stateType | null, any>>(
     NoteReducer,
     null
@@ -86,22 +86,29 @@ export const MatrixTasksContextProvider = ({ children }: any) => {
         },
       }
     );
-    const json: MatrixTask[] | { requiredAuth: boolean } =
-      await response.json();
-    if ("requiredAuth" in json) {
-      handleUserChange({
-        username: null,
-        email: null,
-        token: null,
-      });
+    const json: MatrixTask[] = await response.json();
+    if (!response.ok) {
+      // handleUserChange({
+      //   username: null,
+      //   email: null,
+      //   token: null,
+      // });
       return;
     }
     const CheckedTasks: MatrixTask[] = [];
     const UncheckedTasks: MatrixTask[] = [];
+
     json.map((matrixTask) => {
       if (matrixTask.isDone) CheckedTasks.push(matrixTask);
       else {
-        UncheckedTasks.push(matrixTask);
+        //checking if the task was checked today
+        if (
+          new Date(matrixTask.updatedAt).getDate() === new Date().getDate() &&
+          new Date(matrixTask.updatedAt).getMonth() === new Date().getMonth() &&
+          new Date(matrixTask.updatedAt).getFullYear() ===
+            new Date().getFullYear()
+        )
+          UncheckedTasks.push(matrixTask);
       }
     });
 

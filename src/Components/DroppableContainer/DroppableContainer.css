@@ -2,6 +2,16 @@
   position: relative;
   height: 45vh;
 }
+.length--right {
+  position: absolute;
+  bottom: 1rem;
+  right: 0.5rem;
+}
+.length--left {
+  position: absolute;
+  bottom: 1rem;
+  left: 0.5rem;
+}
 .grade {
   padding: 1.5rem;
   background: #ff6b6b;
