@@ -6,8 +6,10 @@
   position: absolute;
   bottom: 1rem;
   right: 0.5rem;
+  color: #9a4b4b;
 }
 .length--left {
+  color: #9a4b4b;
   position: absolute;
   bottom: 1rem;
   left: 0.5rem;

@@ -15,7 +15,10 @@ function FinishedMatrixTask() {
           ref={provided.innerRef}
           {...provided.droppableProps}
         >
-          <p className="length--left" style={{ bottom: ".2rem" }}>
+          <p
+            className="length--left"
+            style={{ bottom: ".2rem", color: "#8a90a3" }}
+          >
             {state.checkedMatrixTasks.length !== 0
               ? state.checkedMatrixTasks.length
               : ""}
