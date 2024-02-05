@@ -9,7 +9,7 @@ interface stateType {
 }
 
 export const MatrixTasksContext = createContext<{
-  state: stateType;
+  state: stateType | null;
   dispatch: any;
 }>({
   state: {
@@ -25,7 +25,7 @@ export const MatrixTasksContext = createContext<{
 });
 
 export const NoteReducer = (
-  state: stateType,
+  state: stateType | null,
   action: {
     type: "SETNOTES" | "ADDNOTE" | "UPDATENOTES" | "REMOVEMATRIXTASK";
     payload: any;
@@ -40,6 +40,7 @@ export const NoteReducer = (
       };
 
     case "ADDNOTE":
+      if (!state) return null;
       const newarray =
         state.MatrixTasks[action.NoteType as keyof MatrixTasksType];
       newarray.push(action.payload);
@@ -52,6 +53,7 @@ export const NoteReducer = (
       return { MatrixTasks: action.payload, checkedMatrixTasks: [] };
 
     case "REMOVEMATRIXTASK":
+      if (!state) return null;
       return {
         MatrixTasks: {
           ...state.MatrixTasks,
@@ -69,17 +71,9 @@ export const NoteReducer = (
 };
 export const MatrixTasksContextProvider = ({ children }: any) => {
   const { handleUserChange } = useContext(AuthContext);
-  const [state, dispatch] = useReducer<React.Reducer<stateType, any>>(
+  const [state, dispatch] = useReducer<React.Reducer<stateType | null, any>>(
     NoteReducer,
-    {
-      MatrixTasks: {
-        ImportUrgant: [],
-        ImportNotUrgant: [],
-        NotImportUrgant: [],
-        NotImportNotUrgant: [],
-      },
-      checkedMatrixTasks: [],
-    }
+    null
   );
   const { user } = useContext(AuthContext);
 

@@ -11,6 +11,14 @@ interface props {
 function Calendar({ data }: props) {
   const { date, ChangeDate } = useContext(DateContext);
   const daysName = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
+  if (!data)
+    return (
+      <div className="calendar--container">
+        <div className="celendar--daysName">
+          <BeatLoader color={"black"} size={10} />
+        </div>
+      </div>
+    );
 
   const emptyDays = () => {
     const selecteddate = new Date(date.year, date.month - 1, 1);
@@ -38,42 +46,39 @@ function Calendar({ data }: props) {
           </div>
         ))}
       </div>
-      {!data ? (
-        <BeatLoader color={"black"} size={10} />
-      ) : (
-        <div className="calendar--days">
-          {days.map((day, index) => {
-            let counter = 0;
-            for (let NoteIndex = 0; NoteIndex < data.length; NoteIndex++) {
-              if (
-                data[NoteIndex].date.day == day &&
-                data[NoteIndex].date.month == date.month &&
-                data[NoteIndex].date.year == date.year
-              )
-                counter++;
-            }
 
-            return (
-              <div
-                key={index}
-                className={
-                  day == ""
-                    ? ""
-                    : `${date.day == day ? "days selected--day" : "days"}`
-                }
-                onClick={() =>
-                  ChangeDate((prev: MatrixTasksType) => {
-                    return { ...prev, day };
-                  })
-                }
-              >
-                <p>{day}</p>
-                <p className="counter">{counter != 0 && counter}</p>
-              </div>
-            );
-          })}
-        </div>
-      )}
+      <div className="calendar--days">
+        {days.map((day, index) => {
+          let counter = 0;
+          for (let NoteIndex = 0; NoteIndex < data.length; NoteIndex++) {
+            if (
+              data[NoteIndex].date.day == day &&
+              data[NoteIndex].date.month == date.month &&
+              data[NoteIndex].date.year == date.year
+            )
+              counter++;
+          }
+
+          return (
+            <div
+              key={index}
+              className={
+                day == ""
+                  ? ""
+                  : `${date.day == day ? "days selected--day" : "days"}`
+              }
+              onClick={() =>
+                ChangeDate((prev: MatrixTasksType) => {
+                  return { ...prev, day };
+                })
+              }
+            >
+              <p>{day}</p>
+              <p className="counter">{counter != 0 && counter}</p>
+            </div>
+          );
+        })}
+      </div>
     </div>
   );
 }

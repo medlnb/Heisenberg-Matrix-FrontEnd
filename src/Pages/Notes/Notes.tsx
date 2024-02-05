@@ -10,6 +10,14 @@ function Notes() {
   const { state } = useContext(NotesContext);
   const { date } = useContext(DateContext);
 
+  if (!state)
+    return (
+      <div className="tasks--container">
+        <div className="spinner">
+          <BeatLoader color={"black"} size={30} />
+        </div>
+      </div>
+    );
   const filtredData = state?.filter((task: NoteType) => {
     return (
       task.date.day === date.day &&
@@ -55,11 +63,6 @@ function Notes() {
 
   return (
     <div className="tasks--container">
-      {!state && (
-        <div className="spinner">
-          <BeatLoader color={"black"} size={30} />
-        </div>
-      )}
       {filtredData?.length == 0 && (
         <p style={{ color: "white" }}>
           You have no Tasks for this date , relax or add one.

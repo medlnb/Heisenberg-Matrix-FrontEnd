@@ -1,37 +1,55 @@
-import { DragDropContext, DropResult } from 'react-beautiful-dnd'
-import MatrixSideBar from '../../Components/MatrixSideBar/MatrixSideBar'
-import { MatrixTasksContext } from '../../Context/MatrixTaskContext'
-import Matrix from '../Matrix/Matrix'
-import './MatrixP.css'
-import { useContext } from 'react'
-import { AuthContext } from '../../Context/UserContext'
-import { MatrixTasksType } from '../../Models/Models'
-import { CheckMatrixTask, DeleteMatrixTask, MoveMatrixTask } from '../../Data/MatrixNotesData'
+import { DragDropContext, DropResult } from "react-beautiful-dnd";
+import MatrixSideBar from "../../Components/MatrixSideBar/MatrixSideBar";
+import { MatrixTasksContext } from "../../Context/MatrixTaskContext";
+import Matrix from "../Matrix/Matrix";
+import "./MatrixP.css";
+import { useContext } from "react";
+import { AuthContext } from "../../Context/UserContext";
+import { MatrixTasksType } from "../../Models/Models";
+import {
+  CheckMatrixTask,
+  DeleteMatrixTask,
+  MoveMatrixTask,
+} from "../../Data/MatrixNotesData";
+import { BeatLoader } from "react-spinners";
 
 function MatrixP() {
-  const { user } = useContext(AuthContext)
-  const { state, dispatch } = useContext(MatrixTasksContext)
-  if (!dispatch) {
-    return null
+  const { user } = useContext(AuthContext);
+  const { state, dispatch } = useContext(MatrixTasksContext);
+
+  if (!state) {
+    return (
+      <div className="All--container">
+        <div className="left--container">
+          <div className="spinner">
+            <BeatLoader color={"black"} size={30} />
+          </div>
+        </div>
+      </div>
+    );
   }
   const HandleAdd = (result: DropResult) => {
     const { source, destination } = result;
     if (!destination) return;
-    if (destination.droppableId === source.droppableId && destination.index === source.index) return;
-    if (destination.droppableId == source.droppableId) return
+    if (
+      destination.droppableId === source.droppableId &&
+      destination.index === source.index
+    )
+      return;
+    if (destination.droppableId == source.droppableId) return;
 
-    const originState = state.MatrixTasks
+    const originState = state.MatrixTasks;
 
-    const sourceNotes = state.MatrixTasks[source.droppableId as keyof MatrixTasksType];
-    const destinationNotes = state.MatrixTasks[destination.droppableId as keyof MatrixTasksType];
+    const sourceNotes =
+      state.MatrixTasks[source.droppableId as keyof MatrixTasksType];
+    const destinationNotes =
+      state.MatrixTasks[destination.droppableId as keyof MatrixTasksType];
 
     const noteSelected = sourceNotes[source.index];
 
     const newSourceNotes = [...sourceNotes];
 
     newSourceNotes.splice(source.index, 1);
-
-
 
     if (destination.droppableId === "done") {
       dispatch({
@@ -40,44 +58,38 @@ function MatrixP() {
           noteSelected,
           newarray: {
             typeName: [source.droppableId as keyof MatrixTasksType],
-            content: newSourceNotes
-          }
+            content: newSourceNotes,
+          },
+        },
+      });
+      CheckMatrixTask(noteSelected._id, user.token).then((err) => {
+        if (err) {
+          dispatch({
+            type: "SETNOTES",
+            payload: originState,
+          });
         }
-      })
-      CheckMatrixTask(noteSelected._id, user.token).then(
-        err => {
-          if (err) {
-            dispatch({
-              type: "SETNOTES",
-              payload: originState
-            })
-          }
-        }
-      )
-      return
+      });
+      return;
     }
-
 
     if (destination.droppableId === "trash") {
       dispatch({
         type: "UPDATENOTES",
-        payload:
-        {
+        payload: {
           ...state.MatrixTasks,
-          [source.droppableId as keyof MatrixTasksType]: newSourceNotes
+          [source.droppableId as keyof MatrixTasksType]: newSourceNotes,
+        },
+      });
+      DeleteMatrixTask(noteSelected._id, user.token).then((err) => {
+        if (err) {
+          dispatch({
+            type: "SETNOTES",
+            payload: originState,
+          });
         }
-      })
-      DeleteMatrixTask(noteSelected._id, user.token).then(
-        err => {
-          if (err) {
-            dispatch({
-              type: "SETNOTES",
-              payload: originState
-            })
-          }
-        }
-      )
-      return
+      });
+      return;
     }
 
     const newDestinationNotes = [...destinationNotes];
@@ -85,38 +97,32 @@ function MatrixP() {
 
     dispatch({
       type: "UPDATENOTES",
-      payload:
-      {
+      payload: {
         ...state.MatrixTasks,
         [source.droppableId as keyof MatrixTasksType]: newSourceNotes,
         [destination.droppableId as keyof MatrixTasksType]: newDestinationNotes,
-      }
-    })
+      },
+    });
     MoveMatrixTask(noteSelected._id, user.token, destination.droppableId).then(
-      err => {
+      (err) => {
         if (err)
           dispatch({
             type: "SETNOTES",
-            payload: originState
-          })
+            payload: originState,
+          });
       }
-    )
-  }
+    );
+  };
   return (
-
     <DragDropContext onDragEnd={HandleAdd}>
-
-      <div className='All--container'>
+      <div className="All--container">
         <MatrixSideBar />
-        <div className='left--container'>
-          {/* <SearchBar /> */}
+        <div className="left--container">
           <Matrix />
         </div>
       </div>
-
     </DragDropContext>
-
-  )
+  );
 }
 
-export default MatrixP
+export default MatrixP;

@@ -6,25 +6,18 @@ import {
   Route,
   Routes,
 } from "react-router-dom";
-import Tasks from "./Pages/Tasks/Tasks";
-import Notes from "./Pages/Notes/Notes";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import WelcomePage from "./Pages/WelcomePage/WelcomePage";
 import MatrixP from "./Pages/MatrixP/MatrixP";
 import { MatrixTasksContextProvider } from "./Context/MatrixTaskContext";
-import Account from "./Components/Account/Account";
-import NavBar from "./Components/NavBar/NavBar";
-import DateCom from "./Components/DateCom/DateCom";
-import CreateNote from "./Components/CreateNote/CreateNote";
-import Calendar from "./Components/Calendar/Calendar";
-import AddTask from "./Components/AddTask/AddTask";
-import { useContext } from "react";
-import { NotesContext } from "./Context/NoteContext";
-import { TasksContext } from "./Context/TaskContext";
 import { useAuthContext } from "./Hooks/useAuthContext";
 import Login from "./Pages/Login/Login";
 import SignUp from "./Pages/Signup/Signup";
+import NotesContainer from "./Components/NotesContainer/NotesContainer";
+import TasksContainer from "./Components/TasksContainer/TasksContainer";
+import { TasksContextProvider } from "./Context/TaskContext";
+import { NotesContextProvider } from "./Context/NoteContext";
 
 export const notify = (
   toastType: "success" | "info" | "warn" | "error",
@@ -48,8 +41,6 @@ const AuthenticatedRoute: React.FC = () => {
 };
 
 function App() {
-  const { state: notesState } = useContext(NotesContext);
-  const { state: tasksState } = useContext(TasksContext);
   return (
     <div style={{ width: "100%" }}>
       <ToastContainer />
@@ -59,50 +50,36 @@ function App() {
             <Route path="" element={<Login />} />
             <Route path="signup" element={<SignUp />} />
           </Route>
-          <Route path="/" element={<AuthenticatedRoute />}>
+          <Route element={<AuthenticatedRoute />}>
             <Route
               path="/"
               element={
-                <div className="All--container">
-                  <div className="right--container">
-                    <Account />
-                    <NavBar />
-                    <DateCom />
-                    <Calendar data={tasksState} />
-                    <AddTask />
-                  </div>
-                  <div className="left--container">
-                    <Tasks />
-                  </div>
-                </div>
+                <TasksContextProvider>
+                  <NotesContextProvider>
+                    <TasksContainer />
+                  </NotesContextProvider>
+                </TasksContextProvider>
               }
             />
             <Route
               path="/notes"
               element={
-                <div className="All--container">
-                  <div className="right--container">
-                    <Account />
-                    <NavBar />
-                    <DateCom />
-                    <Calendar data={notesState} />
-                    <CreateNote />
-                  </div>
-                  <div className="left--container">
-                    <Notes />
-                  </div>
-                </div>
-              }
-            />
-            <Route
-              path="/matrix"
-              element={
-                <MatrixTasksContextProvider>
-                  <MatrixP />
-                </MatrixTasksContextProvider>
+                <TasksContextProvider>
+                  <NotesContextProvider>
+                    <NotesContainer />
+                  </NotesContextProvider>
+                </TasksContextProvider>
               }
             />
           </Route>
+          <Route
+            path="/matrix"
+            element={
+              <MatrixTasksContextProvider>
+                <MatrixP />
+              </MatrixTasksContextProvider>
+            }
+          />
         </Routes>
       </BrowserRouter>
     </div>
