@@ -40,7 +40,7 @@ export const NotesContextProvider = ({ children }: any) => {
 
   const fetchNotes = async () => {
     const response = await fetch(
-      `https://heisenberg-matrix-backend.onrender.com/api/notes`,
+      `https://heisenberg-matrix-back-end.vercel.app/api/notes`,
       {
         headers: {
           authorization: `bearer ${user.token}`,

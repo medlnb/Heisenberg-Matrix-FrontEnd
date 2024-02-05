@@ -12,7 +12,7 @@ function MatrixStatus() {
     TodayTask: true
   })
   const TasksCheckedToday: MatrixTask[] = []
-  if (!state.checkedMatrixTasks)
+  if (!state)
     return
 
   const IsToday = (dateString: string) => {

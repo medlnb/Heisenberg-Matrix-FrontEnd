@@ -1,7 +1,7 @@
 import { NoteType } from "../Models/Models"
 
 export const PostNote = async (note: NoteType, token: string | null) => {
-  const response = await fetch(`https://heisenberg-matrix-backend.onrender.com/api/notes`, {
+  const response = await fetch(`https://heisenberg-matrix-back-end.vercel.app/api/notes`, {
     method: "POST",
     headers: {
       "Content-Type": "Application/json",
@@ -13,7 +13,7 @@ export const PostNote = async (note: NoteType, token: string | null) => {
 }
 export const DeleteNote = async (NoteId: String | undefined, token: string | null) => {
   try {
-    await fetch(`https://heisenberg-matrix-backend.onrender.com/api/notes/${NoteId}`, {
+    await fetch(`https://heisenberg-matrix-back-end.vercel.app/api/notes/${NoteId}`, {
       method: "DELETE",
       headers: {
         "authorization": `bearer ${token}`

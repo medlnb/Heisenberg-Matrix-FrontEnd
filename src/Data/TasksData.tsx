@@ -1,7 +1,7 @@
 import { TaskType } from "../Models/Models"
 
 export const PostTask = async (task: TaskType, token: string | null) => {
-  const response = await fetch(`https://heisenberg-matrix-backend.onrender.com/api/tasks`, {
+  const response = await fetch(`https://heisenberg-matrix-back-end.vercel.app/api/tasks`, {
     method: "POST",
     headers: {
       "Content-Type": "Application/json",
@@ -13,7 +13,7 @@ export const PostTask = async (task: TaskType, token: string | null) => {
 }
 export const DeleteTask = async (TaskId: String | undefined, token: string | null) => {
   try {
-    await fetch(`https://heisenberg-matrix-backend.onrender.com/api/tasks/${TaskId}`, {
+    await fetch(`https://heisenberg-matrix-back-end.vercel.app/api/tasks/${TaskId}`, {
       method: "DELETE",
       headers: {
         "authorization": `bearer ${token}`
@@ -26,7 +26,7 @@ export const DeleteTask = async (TaskId: String | undefined, token: string | nul
 }
 export const CheckTask = async (TaskId: string | undefined, token: string | null) => {
   try {
-    await fetch(`https://heisenberg-matrix-backend.onrender.com/api/tasks/${TaskId}`, {
+    await fetch(`https://heisenberg-matrix-back-end.vercel.app/api/tasks/${TaskId}`, {
       method: "PATCH",
       headers: {
         "authorization": `bearer ${token}`

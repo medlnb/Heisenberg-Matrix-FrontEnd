@@ -1,5 +1,5 @@
 export const AddNote = async (inputs: any, token: string | null) => {
-  const response = await fetch("https://heisenberg-matrix-backend.onrender.com/api/MatrixTask", {
+  const response = await fetch("https://heisenberg-matrix-back-end.vercel.app/api/MatrixTask", {
     method: "POST",
     headers: {
       "Content-Type": "Application/json",
@@ -12,7 +12,7 @@ export const AddNote = async (inputs: any, token: string | null) => {
 }
 export const DeleteMatrixTask = async (TaskId: string, token: string | null) => {
   try {
-    await fetch(`https://heisenberg-matrix-backend.onrender.com/api/MatrixTask/${TaskId}`, {
+    await fetch(`https://heisenberg-matrix-back-end.vercel.app/api/MatrixTask/${TaskId}`, {
       method: "DELETE",
       headers: {
         "authorization": `bearer ${token}`
@@ -25,7 +25,7 @@ export const DeleteMatrixTask = async (TaskId: string, token: string | null) => 
 
 export const MoveMatrixTask = async (TaskId: string, token: string | null, NewType: string) => {
   try {
-    await fetch(`https://heisenberg-matrix-backend.onrender.com/api/MatrixTask/${TaskId}`, {
+    await fetch(`https://heisenberg-matrix-back-end.vercel.app/api/MatrixTask/${TaskId}`, {
       method: "PATCH",
       headers: {
         "Content-Type": "Application/json",
@@ -40,7 +40,7 @@ export const MoveMatrixTask = async (TaskId: string, token: string | null, NewTy
 
 export const CheckMatrixTask = async (TaskId: string, token: string | null) => {
   try {
-    await fetch(`https://heisenberg-matrix-backend.onrender.com/api/MatrixTask/${TaskId}`, {
+    await fetch(`https://heisenberg-matrix-back-end.vercel.app/api/MatrixTask/${TaskId}`, {
       method: "PATCH",
       headers: {
         "Content-Type": "Application/json",

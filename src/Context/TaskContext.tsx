@@ -51,7 +51,7 @@ export const TasksContextProvider = ({ children }: any) => {
 
   const fetchNotes = async () => {
     const response = await fetch(
-      `https://heisenberg-matrix-backend.onrender.com/api/tasks`,
+      `https://heisenberg-matrix-back-end.vercel.app/api/tasks`,
       {
         headers: {
           authorization: `bearer ${user.token}`,
