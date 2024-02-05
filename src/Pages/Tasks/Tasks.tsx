@@ -56,7 +56,7 @@ function Tasks() {
     <div className="tasks--container">
       {!state && (
         <div className="spinner">
-          <BeatLoader color={"black"} size={30} />
+          <BeatLoader color={"white"} size={30} />
         </div>
       )}
       {filtredData?.length == 0 && (

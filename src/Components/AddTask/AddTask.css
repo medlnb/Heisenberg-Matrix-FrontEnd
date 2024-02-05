@@ -1,7 +1,7 @@
 .button {
   margin: 1.5rem 0.5rem;
-  box-shadow: 0 0 5px;
-  border-radius: 0.5rem;
+  border: 1px solid #676b76;
+  border-radius: 0.3rem;
   padding: 1rem 0.5rem;
   display: flex;
   justify-content: center;
@@ -12,54 +12,53 @@
 
 .addtask--container {
   margin: 1.5rem 0.5rem;
-  box-shadow: 0 0 5px;
-  border-radius: 0.5rem;
+  border: 1px solid #676b76;
+  border-radius: 0.3rem;
   position: relative;
   padding: 1rem 0.5rem;
 }
-.addtask--container > * {
+.addtask--container * {
   margin-bottom: 0.5rem;
+  background: none;
+  outline: none;
+  border: none;
+  color: white;
 }
-.addtask--container textarea {
-  background: white;
+.addtask--container textarea,
+.addtask--container input {
+  background: none;
+  border-radius: 0;
+  border-bottom: 1px solid white;
+  color: white;
+  resize: none;
 }
+
 .addtask--container h4 {
   position: absolute;
   top: -0.7rem;
   left: 1rem;
   background: #424857;
   padding: 0 0.5rem;
-  color: white;
 }
-.addtask--container input {
-  color: black;
-  border-radius: 0.3rem;
-  padding: 0.1rem 0.4rem;
-  border: none;
-  width: 100%;
-}
-.addtask--container input:focus,
-select:focus {
+
+.addtask--container input:focus {
   outline: none;
-  border: none;
-}
-.addtask--container select {
-  border-radius: 0.3rem;
-}
-.addtask--container select {
-  color: black;
-}
-.addtask--container button {
-  color: black;
-  width: 100%;
-  border-radius: 0.3rem;
-  border: none;
-  padding: 0.1rem;
+  border-bottom: 1px solid white;
 }
 
 .type--addnote input {
   width: 45%;
   margin-right: 0.5rem;
+}
+
+.folders--option {
+  background: #424857;
+}
+.addtask--container button {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 0 auto;
 }
 @media (max-width: 700px) {
   .addtask--container > h4 {

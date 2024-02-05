@@ -12,8 +12,6 @@ interface props {
 }
 
 function Note({ note }: props) {
-
-
   const { _id, content } = note
   const { user } = useContext(AuthContext)
   const { dispatch } = useContext(NotesContext)

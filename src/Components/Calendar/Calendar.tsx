@@ -14,9 +14,7 @@ function Calendar({ data }: props) {
   if (!data)
     return (
       <div className="calendar--container">
-        <div className="celendar--daysName">
-          <BeatLoader color={"black"} size={10} />
-        </div>
+        <BeatLoader color={"white"} size={10} />
       </div>
     );
 

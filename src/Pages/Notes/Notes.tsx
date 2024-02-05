@@ -14,7 +14,7 @@ function Notes() {
     return (
       <div className="tasks--container">
         <div className="spinner">
-          <BeatLoader color={"black"} size={30} />
+          <BeatLoader color={"white"} size={30} />
         </div>
       </div>
     );

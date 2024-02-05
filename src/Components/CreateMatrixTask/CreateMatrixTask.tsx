@@ -1,105 +1,138 @@
-import { useContext, useState } from 'react'
-import './CreateMatrixTask.css'
-import { AuthContext } from '../../Context/UserContext'
-import { MatrixTasksContext } from '../../Context/MatrixTaskContext'
-import { AddNote } from '../../Data/MatrixNotesData'
-import { BiExit, BiCommentAdd } from 'react-icons/bi'
-import { notify } from '../../App'
+import { useContext, useState } from "react";
+import "./CreateMatrixTask.css";
+import { AuthContext } from "../../Context/UserContext";
+import { MatrixTasksContext } from "../../Context/MatrixTaskContext";
+import { AddNote } from "../../Data/MatrixNotesData";
+import { BiExit, BiCommentAdd } from "react-icons/bi";
+import { notify } from "../../App";
+import { ClipLoader } from "react-spinners";
 
 function CreateMatrixTask() {
+  const [loading, setLoading] = useState(false);
   const [inputs, setInputs] = useState({
     title: "",
     content: "",
-    type: "ImportUrgant"
-  })
-  const { user } = useContext(AuthContext)
-  const { dispatch } = useContext(MatrixTasksContext)
-  const [isShowen, setIsShowen] = useState<"Button" | "Layout">("Button")
+    type: "ImportUrgant",
+  });
+  const { user } = useContext(AuthContext);
+  const { dispatch } = useContext(MatrixTasksContext);
+  const [isShowen, setIsShowen] = useState<"Button" | "Layout">("Button");
 
   const HandleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault()
+    e.preventDefault();
     if (inputs.content == "" || inputs.title == "")
-      return notify("error", "All fields must be filled")
-
-    AddNote(inputs, user.token).then(
-      note => {
-        dispatch({
-          type: "ADDNOTE",
-          payload: note,
-          NoteType: inputs.type
-        })
-      }
-    )
+      return notify("error", "All fields must be filled");
+    setLoading(true);
+    await AddNote(inputs, user.token).then((note) => {
+      dispatch({
+        type: "ADDNOTE",
+        payload: note,
+        NoteType: inputs.type,
+      });
+    });
+    setLoading(false);
     setInputs({
       title: "",
       content: "",
-      type: "ImportUrgant"
-    })
-  }
+      type: "ImportUrgant",
+    });
+  };
   return (
     <div className="create--note">
-      {isShowen == "Button" &&
+      {isShowen == "Button" && (
         <div
-          className='plus--button'
-          onClick={() => { setIsShowen("Layout") }}
+          className="plus--button"
+          onClick={() => {
+            setIsShowen("Layout");
+          }}
         >
           <BiCommentAdd />
-        </div>}
-      {isShowen == "Layout" &&
+        </div>
+      )}
+      {isShowen == "Layout" && (
         <form className="add--note" onSubmit={HandleSubmit}>
           <BiExit
-            className='cancel--addnote'
+            className="cancel--addnote"
             onClick={() => {
               setIsShowen("Button");
               setInputs({
                 title: "",
                 content: "",
-                type: "ImportUrgant"
-              })
+                type: "ImportUrgant",
+              });
             }}
           />
-          <div className='input--container'>
+          <div className="input--container">
             <input
-              placeholder='title...'
+              placeholder="Title..."
               value={inputs.title}
-              onChange={(e) => setInputs(prev => ({ ...prev, title: e.target.value }))}
+              onChange={(e) =>
+                setInputs((prev) => ({ ...prev, title: e.target.value }))
+              }
             />
           </div>
-          <div className='input--container'>
+          <div className="input--container">
             <textarea
-              placeholder='content...'
+              placeholder="Content..."
               value={inputs.content}
-              onChange={(e) => setInputs(prev => ({ ...prev, content: e.target.value }))}
+              onChange={(e) =>
+                setInputs((prev) => ({ ...prev, content: e.target.value }))
+              }
             />
           </div>
-          <div className='input--container'>
+          <div className="input--container">
             <div className="note--type">
-              <div className={`types ${(inputs.type === "ImportUrgant") ? "selected--type" : ""}`}
-                onClick={() => setInputs(prev => ({ ...prev, type: "ImportUrgant" }))}>
+              <div
+                className={`types ${
+                  inputs.type === "ImportUrgant" ? "selected--type" : ""
+                }`}
+                onClick={() =>
+                  setInputs((prev) => ({ ...prev, type: "ImportUrgant" }))
+                }
+              >
                 important | urgent
               </div>
-              <div className={`types ${(inputs.type === "ImportNotUrgant") ? "selected--type" : ""}`}
-                onClick={() => setInputs(prev => ({ ...prev, type: "ImportNotUrgant" }))}
+              <div
+                className={`types ${
+                  inputs.type === "ImportNotUrgant" ? "selected--type" : ""
+                }`}
+                onClick={() =>
+                  setInputs((prev) => ({ ...prev, type: "ImportNotUrgant" }))
+                }
               >
                 important | not urgent
               </div>
-              <div className={`types ${(inputs.type === "NotImportUrgant") ? "selected--type" : ""}`}
-                onClick={() => setInputs(prev => ({ ...prev, type: "NotImportUrgant" }))}
+              <div
+                className={`types ${
+                  inputs.type === "NotImportUrgant" ? "selected--type" : ""
+                }`}
+                onClick={() =>
+                  setInputs((prev) => ({ ...prev, type: "NotImportUrgant" }))
+                }
               >
                 not important | urgent
               </div>
-              <div className={`types ${(inputs.type === "NotImportNotUrgant") ? "selected--type" : ""}`}
-                onClick={() => setInputs(prev => ({ ...prev, type: "NotImportNotUrgant" }))}
+              <div
+                className={`types ${
+                  inputs.type === "NotImportNotUrgant" ? "selected--type" : ""
+                }`}
+                onClick={() =>
+                  setInputs((prev) => ({ ...prev, type: "NotImportNotUrgant" }))
+                }
               >
                 not important | not urgent
               </div>
             </div>
           </div>
-          <button className='submit--addnote'> Add Note</button>
+          {/* <button className="submit--addnote"> Add Note</button> */}
+          <button>
+            <p>Add</p>
+            {loading && <ClipLoader size={15} color="white" />}
+          </button>
         </form>
-      }
+      )}
     </div>
-  )
+  );
 }
 
-export default CreateMatrixTask
+export default CreateMatrixTask;

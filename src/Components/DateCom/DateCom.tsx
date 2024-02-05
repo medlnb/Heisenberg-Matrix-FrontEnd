@@ -30,7 +30,7 @@ function DateCom() {
     })
   }
   const years = []
-  for (let yearIndex = todaydate.getFullYear() - 10; yearIndex < todaydate.getFullYear() + 20; yearIndex++)
+  for (let yearIndex = todaydate.getFullYear() - 2; yearIndex < todaydate.getFullYear() + 4; yearIndex++)
     years.push(yearIndex)
   return (
     <div className="date">
