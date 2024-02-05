@@ -50,36 +50,21 @@ function App() {
             <Route path="" element={<Login />} />
             <Route path="signup" element={<SignUp />} />
           </Route>
-          <Route element={<AuthenticatedRoute />}>
-            <Route
-              path="/"
-              element={
-                <TasksContextProvider>
-                  <NotesContextProvider>
-                    <TasksContainer />
-                  </NotesContextProvider>
-                </TasksContextProvider>
-              }
-            />
-            <Route
-              path="/notes"
-              element={
-                <TasksContextProvider>
-                  <NotesContextProvider>
-                    <NotesContainer />
-                  </NotesContextProvider>
-                </TasksContextProvider>
-              }
-            />
-          </Route>
           <Route
-            path="/matrix"
             element={
-              <MatrixTasksContextProvider>
-                <MatrixP />
-              </MatrixTasksContextProvider>
+              <TasksContextProvider>
+                <NotesContextProvider>
+                  <MatrixTasksContextProvider>
+                    <AuthenticatedRoute />
+                  </MatrixTasksContextProvider>
+                </NotesContextProvider>
+              </TasksContextProvider>
             }
-          />
+          >
+            <Route path="/" element={<TasksContainer />} />
+            <Route path="/notes" element={<NotesContainer />} />
+            <Route path="/matrix" element={<MatrixP />} />
+          </Route>
         </Routes>
       </BrowserRouter>
     </div>
