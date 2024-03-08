@@ -4,39 +4,39 @@ import { useAuthContext } from "../../Hooks/useAuthContext";
 import { Link, useNavigate } from "react-router-dom";
 import { useSignUp } from "../../Hooks/useSignUp";
 import "../Login/Login";
+import { notify } from "../../App";
 
 function SignUp() {
   const navigate = useNavigate();
   const { handleUserChange } = useAuthContext();
-
-  const onSubmit = (event: any, values: any, actions: any) => {
-    event.preventDefault();
-    useSignUp(values.username, values.email, values.password).then(
-      (data: any) => {
-        if (data.err) {
-          if (actions) {
-            actions.setErrors({ email: data.err });
-            actions.setSubmitting(false);
+  const {
+    values,
+    errors,
+    touched,
+    isSubmitting,
+    handleChange,
+    handleSubmit,
+    setSubmitting,
+  } = useFormik({
+    initialValues: {
+      username: "",
+      email: "",
+      password: "",
+    },
+    validationSchema: SignupSchema,
+    onSubmit: (values) => {
+      useSignUp(values.username, values.email, values.password).then(
+        (data: any) => {
+          if (!data.username) {
+            setSubmitting(false);
+            return notify("error", data);
           }
-        } else {
           handleUserChange(data);
-          if (actions) actions.resetForm();
           navigate("/notes");
         }
-      }
-    );
-  };
-
-  const { values, errors, touched, isSubmitting, handleChange, handleSubmit } =
-    useFormik({
-      initialValues: {
-        username: "",
-        email: "",
-        password: "",
-      },
-      validationSchema: SignupSchema,
-      onSubmit: (values, actions) => onSubmit(event, values, actions),
-    });
+      );
+    },
+  });
   return (
     <div className="LogIn_body">
       <form className="LogIn_conatiner" onSubmit={handleSubmit}>

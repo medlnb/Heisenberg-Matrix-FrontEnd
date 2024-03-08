@@ -6,7 +6,7 @@ import {
   Route,
   Routes,
 } from "react-router-dom";
-import { ToastContainer, toast } from "react-toastify";
+
 import "react-toastify/dist/ReactToastify.css";
 import WelcomePage from "./Pages/WelcomePage/WelcomePage";
 import MatrixP from "./Pages/MatrixP/MatrixP";
@@ -18,21 +18,12 @@ import NotesContainer from "./Components/NotesContainer/NotesContainer";
 import TasksContainer from "./Components/TasksContainer/TasksContainer";
 import { TasksContextProvider } from "./Context/TaskContext";
 import { NotesContextProvider } from "./Context/NoteContext";
+import { Toaster, toast } from "sonner";
 
 export const notify = (
-  toastType: "success" | "info" | "warn" | "error",
+  toastType: "success" | "info" | "warning" | "error",
   toastMsg: string
-) =>
-  toast[toastType](`${toastMsg}`, {
-    position: "top-right",
-    autoClose: 5000,
-    hideProgressBar: false,
-    closeOnClick: true,
-    pauseOnHover: true,
-    draggable: true,
-    progress: undefined,
-    theme: "dark",
-  });
+) => toast[toastType](`${toastMsg}`);
 
 const AuthenticatedRoute: React.FC = () => {
   const { user } = useAuthContext();
@@ -42,32 +33,36 @@ const AuthenticatedRoute: React.FC = () => {
 
 function App() {
   return (
-    <div style={{ width: "100%" }}>
-      <ToastContainer />
-      <BrowserRouter>
-        <Routes>
-          <Route path="/welcome" element={<WelcomePage />}>
-            <Route path="" element={<Login />} />
-            <Route path="signup" element={<SignUp />} />
-          </Route>
-          <Route
-            element={
-              <TasksContextProvider>
-                <NotesContextProvider>
-                  <MatrixTasksContextProvider>
-                    <AuthenticatedRoute />
-                  </MatrixTasksContextProvider>
-                </NotesContextProvider>
-              </TasksContextProvider>
-            }
-          >
-            <Route path="/" element={<TasksContainer />} />
-            <Route path="/notes" element={<NotesContainer />} />
-            <Route path="/matrix" element={<MatrixP />} />
-          </Route>
-        </Routes>
-      </BrowserRouter>
-    </div>
+    <>
+      <div className="everythings-black">
+        <Toaster richColors />
+      </div>
+      <div style={{ width: "100%" }}>
+        <BrowserRouter>
+          <Routes>
+            <Route path="/welcome" element={<WelcomePage />}>
+              <Route path="" element={<Login />} />
+              <Route path="signup" element={<SignUp />} />
+            </Route>
+            <Route
+              element={
+                <TasksContextProvider>
+                  <NotesContextProvider>
+                    <MatrixTasksContextProvider>
+                      <AuthenticatedRoute />
+                    </MatrixTasksContextProvider>
+                  </NotesContextProvider>
+                </TasksContextProvider>
+              }
+            >
+              <Route path="/" element={<TasksContainer />} />
+              <Route path="/notes" element={<NotesContainer />} />
+              <Route path="/matrix" element={<MatrixP />} />
+            </Route>
+          </Routes>
+        </BrowserRouter>
+      </div>
+    </>
   );
 }
 

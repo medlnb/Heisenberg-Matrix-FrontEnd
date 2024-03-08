@@ -4,6 +4,9 @@
   box-sizing: border-box;
   color: #ffffff;
 }
+.everythings-black * {
+  color: black;
+}
 body {
   background: #282c35;
 }
